@@ -15,11 +15,11 @@ Log::Log4perl::AutoInit - Log4Perl with autoinitialization.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
@@ -79,7 +79,9 @@ Log4perl::get_logger()
 
 sub get_logger {
     _init();
-    my $category = $_[0] // $default_category // (caller)[0];
+    my $category = $_[0];
+    $category = $default_category unless defined $category;
+    $category = (caller)[0] unless defined $category;
     return Log::Log4perl::get_logger($category);
 }
 
