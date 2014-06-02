@@ -15,11 +15,11 @@ Log::Log4perl::AutoInit - Log4Perl with autoinitialization.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 =head1 SYNOPSIS
@@ -55,6 +55,7 @@ my $l4p_config;
 
 sub set_config {
     $l4p_config = shift;
+    $l4p_config = shift if $l4p_config eq __PACKAGE__;
 }
 
 =head2 set_default_category
@@ -68,6 +69,7 @@ my $default_category;
 
 sub set_default_category {
     $default_category = shift;
+    $default_category = shift if $default_category eq __PACKAGE__;
 }
 
 =head2 get_logger
