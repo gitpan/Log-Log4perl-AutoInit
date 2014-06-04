@@ -15,11 +15,11 @@ Log::Log4perl::AutoInit - Log4Perl with autoinitialization.
 
 =head1 VERSION
 
-Version 0.04
+Version 1.0.0
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '1.0.0';
 
 
 =head1 SYNOPSIS
@@ -87,9 +87,24 @@ sub get_logger {
     return Log::Log4perl::get_logger($category);
 }
 
+my $initialized = 0; # move to state when we can drop 5.8 support
+
+=head2 initialize_now(bool $reinitialize);
+
+This initializes Log4perl.  If $reinitialize is set, it allows Log4perl to be 
+explicitly reinitialized.
+
+=cut
+
+sub initialize_now {
+   my $re_init = shift;
+   $re_init = shift if $re_init eq __PACKAGE__;
+   $initialized = 0 if $re_init;
+    _init();
+}
+
 # private method for for initialization
 
-my $initialized = 0; # move to state when we can drop 5.8 support
 sub _init {
     return if $initialized;
     ++$initialized;
